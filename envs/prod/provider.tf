@@ -2,11 +2,12 @@ provider "aws" {
   region = "ap-northeast-1"
 
   default_tags {
-    Env    = "prod"
-    System = "example"
+    tags = {
+      Env    = "prod"
+      System = "example"
+    }
   }
 }
-
 terraform {
   required_providers {
     aws = {

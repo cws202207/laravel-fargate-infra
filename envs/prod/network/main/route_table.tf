@@ -18,20 +18,6 @@ resource "aws_route_table_association" "public" {
   subnet_id      = aws_subnet.public[each.key].id
 }
 
-output "aws_route_table" {
-  value = aws_route_table.public
-}
-
-output "aws_internet_gateway" {
-  value = aws_internet_gateway.this.id
-}
-output "aws_route" {
-  value = aws_route.internet_gateway_public
-}
-output "aws_route_table_association" {
-  value = aws_route_table_association.public
-}
-
 resource "aws_route_table" "private" {
   for_each = var.azs
 
@@ -56,9 +42,3 @@ resource "aws_route_table_association" "private" {
   subnet_id      = aws_subnet.private[each.key].id
 }
 
-output "nat_gateway" {
-	value = var.single_nat_gateway
-}
-output "local_nat_gateway" {
-	value = local.nat_gateway_azs
-}
