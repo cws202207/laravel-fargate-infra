@@ -12,10 +12,10 @@ resource "aws_lb" "this" {
     prefix  = "appfoobar-link"
   }
 
-#  security_groups = [
-#    data.terraform_remote_state.network_main.outputs.security_group_web_id,
-#    data.terraform_remote_state.network_main.outputs.security_group_vpc_id
-#  ]
+  security_groups = [
+    data.terraform_remote_state.network_main.outputs.security_group_vpc_id,
+    data.terraform_remote_state.network_main.outputs.security_group_web_id
+  ]
 
   subnets = [
     for s in data.terraform_remote_state.network_main.outputs.subnet_public : s.id
