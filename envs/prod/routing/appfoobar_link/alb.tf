@@ -7,15 +7,15 @@ resource "aws_lb" "this" {
   load_balancer_type = "application"
 
   access_logs {
-    bucket = data.terraform_remote_state.log_alb.outputs.s3_bucket_this_id
-    enable = true
-    prefix = "appfoobar-link"
+    bucket  = data.terraform_remote_state.log_alb.outputs.s3_bucket_this_id
+    enabled = true
+    prefix  = "appfoobar-link"
   }
 
-  security_groups = [
-    data.terraform_remote_state.netowrk_main.outputs.security_group_web_id,
-    data.terraform_remote_state.network_main.outputs.security_group_vpc_id
-  ]
+#  security_groups = [
+#    data.terraform_remote_state.network_main.outputs.security_group_web_id,
+#    data.terraform_remote_state.network_main.outputs.security_group_vpc_id
+#  ]
 
   subnets = [
     for s in data.terraform_remote_state.network_main.outputs.subnet_public : s.id
@@ -24,9 +24,4 @@ resource "aws_lb" "this" {
   tags = {
     Name = "${local.name_prefix}-appfoobar-link"
   }
-}
-
-
-output "access_log_id" {
-value = data.terraform_remote_state.log_alb.outputs.s3_bucket_this_id
 }
